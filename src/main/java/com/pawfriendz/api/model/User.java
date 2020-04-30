@@ -71,5 +71,18 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("User{");
+        sb.append("userId='").append(userId).append('\'');
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", username='").append(username).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
 

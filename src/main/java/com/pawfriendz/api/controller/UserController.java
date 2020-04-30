@@ -20,12 +20,13 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/hello/{name}")
-    public String sayHi(@PathVariable String name
-//                        @RequestBody UserDTO userDTO
+    public String sayHi(@PathVariable String name,
+                        @RequestBody UserDTO userDTO
     ) throws NoSuchAlgorithmException {
+if(userDTO!=null){
+    userService.saveUser(userDTO);
+}
 
-        User user = new User("", "Jennifer", "Test", "brownbunny8705@gmail.com", hashPassword("yolo"), "pikachu");
-        userService.saveUser(user);
 
         return "hello " + name + " you were saved to the collection.";
     }
