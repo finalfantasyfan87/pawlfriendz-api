@@ -1,3 +1,3 @@
 # pawlfriendz-api
 ![Image of Post request]
-(https://share.getcloudapp.com/geuWAy8o)
+(pawlfriendz-api/Screen Shot 2020-05-02 at 5.51.42 AM.png)
