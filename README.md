@@ -1,2 +1,2 @@
 # pawlfriendz-api
-![Image of Post request](https://share.getcloudapp.com/geuWAy8o)
+![Image](https://share.getcloudapp.com/geuWAy8o/POST.png)
