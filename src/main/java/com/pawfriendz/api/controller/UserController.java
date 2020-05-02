@@ -28,7 +28,7 @@ if(userDTO!=null){
 }
 
 
-        return "Thank you register, " + userDTO.getUsername() + " you were saved to the collection.";
+        return "Thank you for registering, " + (userDTO != null ? userDTO.getUsername() : null) +".";
     }
 
 
