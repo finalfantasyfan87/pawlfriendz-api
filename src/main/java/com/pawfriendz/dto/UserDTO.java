@@ -1,13 +1,25 @@
 package com.pawfriendz.dto;
 
+import javax.validation.constraints.*;
+
 public class UserDTO {
 
     String userId;
+    @NotBlank(message = "First Name is required.")
     String firstName;
+
+    @NotBlank(message = "Last Name is required.")
     String lastName;
+
+    @NotBlank(message = "Email is required.")
+    @Email
     String email;
+
+    @NotBlank(message="Password is required.")
     String password;
-    String userName;
+
+    @NotBlank(message="Username is required.")
+    String username;
 
     public UserDTO(String userId, String firstName, String lastName, String email, String password, String userName) {
         this.userId = userId;
@@ -15,7 +27,7 @@ public class UserDTO {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String getUserId() {
@@ -58,12 +70,12 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -74,7 +86,7 @@ public class UserDTO {
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", password='").append(password).append('\'');
-        sb.append(", userName='").append(userName).append('\'');
+        sb.append(", userName='").append(username).append('\'');
         sb.append('}');
         return sb.toString();
     }

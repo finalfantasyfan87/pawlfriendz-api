@@ -5,10 +5,10 @@ import com.pawfriendz.api.service.UserService;
 import com.pawfriendz.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
@@ -19,16 +19,16 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/hello/{name}")
-    public String sayHi(@PathVariable String name,
-                        @RequestBody UserDTO userDTO
+    @GetMapping("/register")
+    public String sayHi(@Valid @RequestBody UserDTO userDTO
     ) throws NoSuchAlgorithmException {
 if(userDTO!=null){
-    userService.saveUser(userDTO);
+    User user = new User(userDTO.getUserId(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(), hashPassword(userDTO.getPassword()), userDTO.getUsername());
+    userService.saveUser(user);
 }
 
 
-        return "hello " + name + " you were saved to the collection.";
+        return "Thank you register, " + userDTO.getUsername() + " you were saved to the collection.";
     }
 
 
