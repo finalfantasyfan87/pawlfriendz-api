@@ -2,29 +2,41 @@ package com.pawfriendz.api.controller;
 
 import com.pawfriendz.api.model.User;
 import com.pawfriendz.api.service.UserService;
+import com.pawfriendz.api.util.PasswordUtil;
 import com.pawfriendz.dto.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
+import static com.pawfriendz.api.util.PasswordUtil.hashPassword;
+
 
 @RestController
 public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/register")
+    Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @PostMapping("/register")
     public String sayHi(@Valid @RequestBody UserDTO userDTO
-    ) throws NoSuchAlgorithmException {
+    )  {
 if(userDTO!=null){
-    User user = new User(userDTO.getUserId(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(), hashPassword(userDTO.getPassword()), userDTO.getUsername());
+    User user = null;
+    try {
+        user = new User(userDTO.getUserId(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(), hashPassword(userDTO.getPassword()), userDTO.getUsername());
+    } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+    }
     userService.saveUser(user);
+    logger.debug("user " + user.getUserId() + " was saved to the database.");
 }
 
 
@@ -32,15 +44,5 @@ if(userDTO!=null){
     }
 
 
-    public String hashPassword(String text) throws NoSuchAlgorithmException {
-        String hashedPw = "";
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(text.getBytes());
-        //Get the hash's bytes
-        byte[] bytes = md.digest();
-        String sb = IntStream.range(0, bytes.length).mapToObj(i -> Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1)).collect(Collectors.joining());
-        //Get complete hashed password in hex format
-        hashedPw = sb;
-        return hashedPw;
-    }
+
 }
