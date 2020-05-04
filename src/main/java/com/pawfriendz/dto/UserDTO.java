@@ -4,31 +4,36 @@ import javax.validation.constraints.*;
 
 public class UserDTO {
 
-    String userId;
+    private String userId;
     @NotBlank(message = "First Name is required.")
-    String firstName;
+    private String firstName;
 
     @NotBlank(message = "Last Name is required.")
-    String lastName;
+    private String lastName;
 
     @NotBlank(message = "Email is required.")
     @Email
-    String email;
+    private String email;
 
     @NotBlank(message = "Password is required.")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\p{Punct})[\\p{ASCII}&&[\\S]]{8,}$", message = "Your password must be between 8 and 10,at least one lowercase letter, at least one digit: between  0-9, at least one special character, and at least one capital letter.")
-    String password;
+    private String password;
 
     @NotBlank(message = "Username is required.")
-    String username;
+    private String username;
 
-    public UserDTO(String userId, String firstName, String lastName, String email, String password, String userName) {
+    @NotBlank(message = "Phone number is required.")
+            @Pattern(regexp = "\\d{3}-\\d{3}-\\d{4}", message= "Please enter phone number in xxx-xxx-xxxx format. Numbers only, please!")
+    private String phoneNumber;
+
+    public UserDTO(String userId, String firstName, String lastName, String email, String password, String userName, String phoneNumber) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.username = userName;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getUserId() {
@@ -79,6 +84,14 @@ public class UserDTO {
         this.username = username;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("UserDTO{");
@@ -88,6 +101,7 @@ public class UserDTO {
         sb.append(", email='").append(email).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", userName='").append(username).append('\'');
+        sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append('}');
         return sb.toString();
     }

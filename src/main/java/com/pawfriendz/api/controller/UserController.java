@@ -28,12 +28,12 @@ public class UserController {
 			User user = null;
 			try {
 				user = new User(userDTO.getUserId(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-						hashPassword(userDTO.getPassword()), userDTO.getUsername());
+						hashPassword(userDTO.getPassword()), userDTO.getUsername(),userDTO.getPhoneNumber());
 			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
+		logger.error("An has occurred => "+ e.getMessage());
 			}
 			userService.saveUser(user);
-			logger.info("user " + user.getUserId() + " was saved to the database.");
+			logger.info("user id " + user.getUserId() + " was saved to the database.");
 		}
 
 		return "Thank you for registering, " + (userDTO != null ? userDTO.getUsername() : null) + ".";

@@ -6,21 +6,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User {
     @Id
-    String userId;
-    String firstName;
-    String lastName;
-    String email;
-    String password;
-    String username;
+    private String userId;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String username;
+    private String phoneNumber;
 
 
-    public User(String userId, String firstName, String lastName, String email, String password, String username) {
+    public User(String userId, String firstName, String lastName, String email, String password, String username, String phoneNumber) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.username = username;
+        this.phoneNumber = phoneNumber;
     }
 
 
@@ -72,6 +74,14 @@ public class User {
         this.username = username;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("User{");
@@ -81,6 +91,7 @@ public class User {
         sb.append(", email='").append(email).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", username='").append(username).append('\'');
+        sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append('}');
         return sb.toString();
     }
