@@ -3,7 +3,7 @@ import random
 import names
 
 
-def pw_gen(size=8, chars=string.ascii_letters + string.digits + string.punctuation):
+def passwordGenerator(size=10, chars=string.ascii_lowercase + string.ascii_uppercase + string.digits + string.punctuation):
     return ''.join(random.choice(chars) for _ in range(size))
 
 
@@ -21,7 +21,7 @@ data = {
     "firstName": names.get_first_name(),
     "lastName": names.get_last_name(),
     "email": generateRandomEmail(12)+"@gmail.com",
-    "password": pw_gen(),
+    "password": passwordGenerator(),
     "username": generateRandomString(4)
 }
 
