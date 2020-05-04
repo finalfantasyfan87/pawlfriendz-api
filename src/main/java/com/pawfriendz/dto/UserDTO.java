@@ -16,6 +16,8 @@ public class UserDTO {
     String email;
 
     @NotBlank(message="Password is required.")
+            //not working like it should..i  never claimed to be a regex expert lol
+//            @Pattern(regexp = "((?=.*[a-z])(?=.*d)(?=.*[@#$%])(?=.*[A-Z]).{8,10})", message = "Your password must be between 8 and 10,at least one lowercase letter, at least one digit: between  0-9, at least one special character, and at least one capital letter.")
     String password;
 
     @NotBlank(message="Username is required.")

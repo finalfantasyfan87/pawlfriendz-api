@@ -36,7 +36,7 @@ if(userDTO!=null){
         e.printStackTrace();
     }
     userService.saveUser(user);
-    logger.debug("user " + user.getUserId() + " was saved to the database.");
+    logger.info("user " + user.getUserId() + " was saved to the database.");
 }
 
 

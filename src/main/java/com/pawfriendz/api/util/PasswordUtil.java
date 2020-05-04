@@ -13,9 +13,8 @@ public class PasswordUtil {
         md.update(text.getBytes());
         //Get the hash's bytes
         byte[] bytes = md.digest();
-        String sb = IntStream.range(0, bytes.length).mapToObj(i -> Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1)).collect(Collectors.joining());
         //Get complete hashed password in hex format
-        hashedPw = sb;
+        hashedPw = IntStream.range(0, bytes.length).mapToObj(i -> Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1)).collect(Collectors.joining());
         return hashedPw;
     }
 }
