@@ -13,9 +13,11 @@ public class User {
     private String password;
     private String username;
     private String phoneNumber;
+    private String favoriteDog;
 
 
-    public User(String userId, String firstName, String lastName, String email, String password, String username, String phoneNumber) {
+
+    public User(String userId, String firstName, String lastName, String email, String password, String username, String phoneNumber, String favoriteDog) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,6 +25,7 @@ public class User {
         this.password = password;
         this.username = username;
         this.phoneNumber = phoneNumber;
+        this.favoriteDog = favoriteDog;
     }
 
 
@@ -82,6 +85,14 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getFavoriteDog() {
+        return favoriteDog;
+    }
+
+    public void setFavoriteDog(String favoriteDog) {
+        this.favoriteDog = favoriteDog;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("User{");
@@ -92,6 +103,7 @@ public class User {
         sb.append(", password='").append(password).append('\'');
         sb.append(", username='").append(username).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
+        sb.append(", favoriteDog='").append(favoriteDog).append('\'');
         sb.append('}');
         return sb.toString();
     }

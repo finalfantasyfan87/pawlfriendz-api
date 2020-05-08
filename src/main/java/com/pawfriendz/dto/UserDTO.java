@@ -25,8 +25,9 @@ public class UserDTO {
     @NotBlank(message = "Phone number is required.")
             @Pattern(regexp = "\\d{3}-\\d{3}-\\d{4}", message= "Please enter phone number in xxx-xxx-xxxx format. Numbers only, please!")
     private String phoneNumber;
+    private String  favoriteDog;
 
-    public UserDTO(String userId, String firstName, String lastName, String email, String password, String userName, String phoneNumber) {
+    public UserDTO(String userId, String firstName, String lastName, String email, String password, String userName, String phoneNumber, String favoriteDog) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,6 +35,7 @@ public class UserDTO {
         this.password = password;
         this.username = userName;
         this.phoneNumber = phoneNumber;
+        this.favoriteDog = favoriteDog;
     }
 
     public String getUserId() {
@@ -92,6 +94,14 @@ public class UserDTO {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getFavoriteDog() {
+        return favoriteDog;
+    }
+
+    public void setFavoriteDog(String favoriteDog) {
+        this.favoriteDog = favoriteDog;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("UserDTO{");
@@ -102,6 +112,7 @@ public class UserDTO {
         sb.append(", password='").append(password).append('\'');
         sb.append(", userName='").append(username).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
+        sb.append(", favoriteDog='").append(favoriteDog).append('\'');
         sb.append('}');
         return sb.toString();
     }

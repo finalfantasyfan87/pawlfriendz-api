@@ -29,11 +29,9 @@ public class UserController {
 		User user = null;
 		if (userDTO != null ) {
 			user = new User(userDTO.getUserId(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-					hashPassword(userDTO.getPassword()), userDTO.getUsername(), userDTO.getPhoneNumber());
+					hashPassword(userDTO.getPassword()), userDTO.getUsername(), userDTO.getPhoneNumber(), userDTO.getFavoriteDog());
 			userService.saveUser(user);
 			logger.info("user id " + user.getUserId() + " was saved to the database.");
-
-
 		}
 		return ResponseEntity.ok().body(user);
 
