@@ -7,6 +7,6 @@ USER pawfriendz:pawfriendz
 
 COPY target/*.jar pawfriendz.jar
 
-EXPOSE 8443
+EXPOSE 8080
 
 ENTRYPOINT ["java","-jar","pawfriendz.jar"]
