@@ -28,6 +28,11 @@ public class User {
         this.favoriteDog = favoriteDog;
     }
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
 
     public String getUserId() {
         return userId;
