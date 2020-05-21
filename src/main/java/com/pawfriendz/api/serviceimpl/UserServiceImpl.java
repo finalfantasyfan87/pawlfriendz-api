@@ -27,19 +27,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean login(User user) {
-        boolean existingUser = false;
+        boolean existingUser;
         Map<String, String> userMap = new HashMap<>();
         List<  Map<String, String>> userMapList = new ArrayList<>();
-        for (User registeredUser : displayAllRegisteredUsers()) {
+        displayAllRegisteredUsers().forEach(registeredUser -> {
             userMap.put(registeredUser.getUsername(), registeredUser.getPassword());
             userMapList.add(userMap);
-        }
-        for (Map<String, String> userCredentials : userMapList) {
-            if (userCredentials.containsKey(user.getUsername()) && userCredentials.containsValue(user.getPassword())) {
-                existingUser = true;
-                break;
-            }
-        }
+        });
+        existingUser = userMapList.stream().anyMatch(userCredentials -> userCredentials.containsKey(user.getUsername()) && userCredentials.containsValue(user.getPassword()));
         return existingUser;
 
     }
