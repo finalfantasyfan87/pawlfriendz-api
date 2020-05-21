@@ -15,7 +15,8 @@ public class User {
     private String phoneNumber;
     private String favoriteDog;
 
-
+    public User() {
+    }
 
     public User(String userId, String firstName, String lastName, String email, String password, String username, String phoneNumber, String favoriteDog) {
         this.userId = userId;

@@ -27,6 +27,10 @@ public class UserDTO {
     private String phoneNumber;
     private String  favoriteDog;
 
+
+    public UserDTO() {
+    }
+
     public UserDTO(String userId, String firstName, String lastName, String email, String password, String userName, String phoneNumber, String favoriteDog) {
         this.userId = userId;
         this.firstName = firstName;
@@ -36,6 +40,11 @@ public class UserDTO {
         this.username = userName;
         this.phoneNumber = phoneNumber;
         this.favoriteDog = favoriteDog;
+    }
+
+    public UserDTO(@NotBlank(message = "Password is required.") @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\p{Punct})[\\p{ASCII}&&[\\S]]{8,}$", message = "Your password must be between 8 and 10,at least one lowercase letter, at least one digit: between  0-9, at least one special character, and at least one capital letter.") String password, @NotBlank(message = "Username is required.") String username) {
+        this.password = password;
+        this.username = username;
     }
 
     public String getUserId() {
