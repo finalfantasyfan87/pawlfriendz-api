@@ -7,3 +7,11 @@ workflows:
   maven_test:
     jobs:
       - maven/test # checkout, build, test, and upload test results
+  deploy:
+    steps:
+      - checkout
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push https://heroku:0fab05cc-0e18-4f0a-ad9c-6362fbeefdc7
+  @git.heroku.com/pawfriendz-apii.git develop
