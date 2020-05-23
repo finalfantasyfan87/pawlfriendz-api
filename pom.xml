@@ -11,11 +11,13 @@
     <groupId>com.pawfriendz.api</groupId>
     <artifactId>pawfriendz-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>pawfriendz-api</name>
     <description>Woof</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
     </properties>
 
     <dependencies>
@@ -60,6 +62,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <appName>pawfriendz-api</appName>
+                    <includeTarget>false</includeTarget>
+                    <includes>
+                        <include>${basedir}/${full-artifact-name}</include>
+                    </includes>
+                    <jdkVersion>1.8</jdkVersion>
+                    <processTypes>
+                        <web>java $JAVA_OPTS -jar ${full-artifact-name}</web>
+                    </processTypes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
