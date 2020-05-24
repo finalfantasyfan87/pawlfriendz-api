@@ -8,10 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.lang.System.out;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -26,16 +25,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(User user) {
-        boolean existingUser;
-        Map<String, String> userMap = new HashMap<>();
-        List<  Map<String, String>> userMapList = new ArrayList<>();
-        displayAllRegisteredUsers().forEach(registeredUser -> {
-            userMap.put(registeredUser.getUsername(), registeredUser.getPassword());
-            userMapList.add(userMap);
-        });
-        existingUser = userMapList.stream().anyMatch(userCredentials -> userCredentials.containsKey(user.getUsername()) && userCredentials.containsValue(user.getPassword()));
-        return existingUser;
+    public Optional<User> login(User user) {
+List<Optional<User>> existingUsers = new ArrayList();
+Optional<User> userToReturn = Optional.empty();
+        displayAllRegisteredUsers().forEach(registeredUser -> existingUsers.add(Optional.ofNullable(registeredUser)));
+        out.println(existingUsers);
+        for (Optional<User> existingUser : existingUsers) {
+           if(Objects.equals(user.getPassword(), existingUser.get().getPassword()) && Objects.equals(user.getUsername(), existingUser.get().getUsername())){
+               userToReturn= userRepository.findById(existingUser.get().getUserId());
+           }
+            out.println(userToReturn);
+        }
+
+
+        return userToReturn;
 
     }
 
@@ -44,4 +47,6 @@ public class UserServiceImpl implements UserService {
         logger.info("all the users::  " + listOfUsers);
         return listOfUsers;
     }
+
+
 }

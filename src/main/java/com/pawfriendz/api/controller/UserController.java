@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.pawfriendz.api.util.PasswordUtil.hashPassword;
 
@@ -38,13 +39,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody UserDTO userDto) {
+    public  Optional<User> loginUser(@RequestBody UserDTO userDto) {
         User user = new User(userDto.getUsername(), userDto.getPassword());
-        boolean userExist = userService.login(user);
-        if(userExist){
-      return  user.getUsername() + "was successfully logged in.";
-		}
-        return "Please check your credentials. The user isn't registered in our system. Please register for PawlFriends :D";
+        Optional<User> registeredUser = userService.login(user);
+         System.out.println("User:: "+registeredUser);
+        return  registeredUser;
     }
 
     @GetMapping("/users")
