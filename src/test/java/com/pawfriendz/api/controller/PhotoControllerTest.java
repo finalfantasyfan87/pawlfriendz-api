@@ -17,13 +17,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.pawfriendz.api.model.Photo;
 import com.pawfriendz.api.service.PhotoService;
 import com.pawfriendz.api.test.util.DTOStubUtil;
+import com.pawfriendz.api.util.VaildationUtils;
 import com.pawfriendz.dto.PhotoDTO;
 import com.pawfriendz.repository.PhotoRepository;
 
@@ -37,6 +40,16 @@ public class PhotoControllerTest {
     @MockBean
     private PhotoService mockPhotoService;
     private PhotoDTO testPhotoDTO;
+   
+    
+    @TestConfiguration
+    static class TestConfig {
+    	@Bean
+    	public VaildationUtils getVaildationUtils() {
+    		return new VaildationUtils();
+    	}
+    }
+    
     
     @BeforeEach
     public void setup() {
@@ -156,9 +169,9 @@ public class PhotoControllerTest {
     }
     
     @Test
-    public void get_getAllPhotosForUsers_Returns_Good_Request_200_When_UserId_And_PhotoId_Are_Valid() {
+    public void get_getAllPhotosForUsers_Returns_Good_Request_204_When_UserId_And_PhotoId_Are_Valid_But_No_Photo_Was_Returned() {
     	try {
-			mockMvc.perform(get("/photos/123E4568AB/123E4568AB")).andExpect(status().isOk());
+			mockMvc.perform(get("/photos/123E4568AB/123E4568AB")).andExpect(status().isNoContent());
 		} catch (Exception e) {
 			fail();
 		}
