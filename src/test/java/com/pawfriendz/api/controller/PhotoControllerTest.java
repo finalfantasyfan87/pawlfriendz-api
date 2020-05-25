@@ -13,11 +13,11 @@ import java.util.Optional;
 import org.bson.types.Binary;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.pawfriendz.api.model.Photo;
@@ -26,7 +26,7 @@ import com.pawfriendz.api.test.util.DTOStubUtil;
 import com.pawfriendz.dto.PhotoDTO;
 import com.pawfriendz.repository.PhotoRepository;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(PhotoController.class)
 public class PhotoControllerTest {
     @Autowired
