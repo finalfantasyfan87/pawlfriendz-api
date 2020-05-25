@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,21 +44,21 @@ public class PhotoControllerTest {
     }
     
     @Test
-    public void photo_Controller_Returns_201_Is_Created_When_Saved_Successfully() throws Exception {
+    public void upload_Photo_Returns_201_Is_Created_When_Saved_Successfully() throws Exception {
     	when(mockPhotoService.savePhoto(testPhotoDTO)).thenReturn(Optional.of(new Photo("1234356789", new Binary(DTOStubUtil.getTestPhoto().getBytes()))));
     	mockMvc.perform(post("/photos/upload/").flashAttr("photoDTO", testPhotoDTO)).andExpect(status().isCreated());
     	verify(mockPhotoService, times(1)).savePhoto(testPhotoDTO);
     }
     
     @Test
-    public void photo_Controller_Returns_422_Is_Unprocessable_Entity_When_Persistent_Exception() throws Exception {
+    public void upload_Photo_Returns_422_Is_Unprocessable_Entity_When_Persistent_Exception() throws Exception {
     	when(mockPhotoService.savePhoto(testPhotoDTO)).thenReturn(Optional.ofNullable(null));
     	mockMvc.perform(post("/photos/upload/").flashAttr("photoDTO", testPhotoDTO)).andExpect(status().isUnprocessableEntity());
     	verify(mockPhotoService, times(1)).savePhoto(testPhotoDTO);
     }
     
     @Test
-    public void photo_Controller_Throws_Exception_When_UserID_Is_Null() throws Exception {
+    public void upload_Photor_Throws_Exception_When_UserID_Is_Null() {
     	testPhotoDTO.setUserId(null);
     	try {
     		mockMvc.perform(post("/photos/upload/").flashAttr("photoDTO", testPhotoDTO));
@@ -68,7 +69,7 @@ public class PhotoControllerTest {
     }
     
     @Test
-    public void photo_Controller_Throws_Exception_When_UserID_Is_Empty() throws Exception {
+    public void upload_Photo_Throws_Exception_When_UserID_Is_Empty() {
     	testPhotoDTO.setUserId("");
     	try {
     		mockMvc.perform(post("/photos/upload/").flashAttr("photoDTO", testPhotoDTO));
@@ -79,7 +80,7 @@ public class PhotoControllerTest {
     } 
     
     @Test
-    public void photo_Controller_Throws_Exception_When_Image_Is_Null() throws Exception {
+    public void upload_Photo_Throws_Exception_When_Image_Is_Null() {
     	testPhotoDTO.setPhoto(null);
     	try {
     		mockMvc.perform(post("/photos/upload/").flashAttr("photoDTO", testPhotoDTO));
@@ -87,5 +88,79 @@ public class PhotoControllerTest {
     	} catch (Exception e) {
     		verify(mockPhotoService, times(0)).savePhoto(testPhotoDTO);
     	}
-    }    
+    }
+    
+    @Test
+    public void get_getAllPhotosForUser_Returns_Bad_Request_400_When_UserId_Is_Empty() {
+    	try {
+			mockMvc.perform(get("/photos/ ")).andExpect(status().isBadRequest());
+		} catch (Exception e) {
+			fail();
+		}
+    }
+    
+    @Test
+    public void get_getAllPhotosForUser_Returns_Bad_Request_400_When_UserId_Has_Non_Alphanumeric_Characters() {
+    	try {
+			mockMvc.perform(get("/photos/123459-514b")).andExpect(status().isBadRequest());
+		} catch (Exception e) {
+			fail();
+		}
+    }
+      
+        
+    @Test
+    public void get_getAllPhotosForUsers_Returns_Good_Request_200_When_UserId_Contains_Valid_UserId() {
+    	try {
+			mockMvc.perform(get("/photos/123E4568AB")).andExpect(status().isOk());
+		} catch (Exception e) {
+			fail();
+		}
+    }
+    
+    
+    @Test
+    public void get_getSinglePhotoForUserById_Returns_Bad_Request_400_When_UserId_Is_Blank() {
+    	try {
+			mockMvc.perform(get("/photos/ /123E4568AB")).andExpect(status().isBadRequest());
+		} catch (Exception e) {
+			fail();
+		}
+    }
+    
+    @Test
+    public void get_getSinglePhotoForUserById_Returns_Bad_Request_400_When_UserId_Contains_Non_Alphanumeric_Characters() {
+    	try {
+			mockMvc.perform(get("/photos/123459-514b/123E4568AB")).andExpect(status().isBadRequest());
+		} catch (Exception e) {
+			fail();
+		}
+    }
+    
+    @Test
+    public void get_getSinglePhotoForUserById_Returns_Bad_Request_400_When_PhotoId_Is_Blank() {
+    	try {
+			mockMvc.perform(get("/photos/123E4568AB/ ")).andExpect(status().isBadRequest());
+		} catch (Exception e) {
+			fail();
+		}
+    }
+    
+    @Test
+    public void get_getSinglePhotoForUserById_Returns_Bad_Request_400_When_PhotoId_Contains_Non_Alphanumeric_Characters() {
+    	try {
+			mockMvc.perform(get("/photos/123E4568AB/123459-514b")).andExpect(status().isBadRequest());
+		} catch (Exception e) {
+			fail();
+		}
+    }
+    
+    @Test
+    public void get_getAllPhotosForUsers_Returns_Good_Request_200_When_UserId_And_PhotoId_Are_Valid() {
+    	try {
+			mockMvc.perform(get("/photos/123E4568AB/123E4568AB")).andExpect(status().isOk());
+		} catch (Exception e) {
+			fail();
+		}
+    }
 }
