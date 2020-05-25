@@ -9,7 +9,7 @@ import java.nio.file.Files;
 
 public class DTOStubUtil {
 	public static UserDTO getUserDTO() {
-		return new UserDTO("123456789", "Barbie", "Jones", "barbie@gmail..com", "ALongWayToBaSingSe99!", "iroh1", "555-555-5555", "doodle", getTestPhoto());
+		return new UserDTO("123456789", "Barbie", "Jones", "barbie@gmail.com", "ALongWayToBaSingSe99!", "iroh1", "555-555-5555", "doodle", getTestPhoto());
 	}
 	public static MockMultipartFile getTestPhoto()  {
 		File testFile = new File("src/test/resources/barbie.jpeg");

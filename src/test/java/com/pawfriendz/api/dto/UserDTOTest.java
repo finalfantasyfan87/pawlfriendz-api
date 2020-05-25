@@ -1,19 +1,17 @@
 package com.pawfriendz.api.dto;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Set;
+import com.pawfriendz.api.test.util.DTOStubUtil;
+import com.pawfriendz.dto.UserDTO;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.pawfriendz.api.test.util.DTOStubUtil;
-import com.pawfriendz.dto.UserDTO;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserDTOTest {
 	
@@ -29,6 +27,7 @@ public class UserDTOTest {
 	public void test_User_DTO_Validation_For_Good_DTO() {
 		UserDTO user = DTOStubUtil.getUserDTO();
 		Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
+		System.out.println(violations);
 		assertTrue(violations.isEmpty());
 	}
 	
