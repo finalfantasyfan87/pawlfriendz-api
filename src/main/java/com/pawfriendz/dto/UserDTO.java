@@ -1,7 +1,18 @@
 package com.pawfriendz.dto;
 
-import javax.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class UserDTO {
 
     private String userId;
@@ -27,15 +38,19 @@ public class UserDTO {
     private String phoneNumber;
     private String  favoriteDog;
 
-    public UserDTO(String userId, String firstName, String lastName, String email, String password, String userName, String phoneNumber, String favoriteDog) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    @NotNull
+    private MultipartFile profilePic;
+    public UserDTO(@NotBlank(message = "Password is required.") @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\p{Punct})[\\p{ASCII}&&[\\S]]{8,}$", message = "Your password must be between 8 and 10,at least one lowercase letter, at least one digit: between  0-9, at least one special character, and at least one capital letter.") String password, @NotBlank(message = "Username is required.") String username) {
         this.password = password;
-        this.username = userName;
-        this.phoneNumber = phoneNumber;
-        this.favoriteDog = favoriteDog;
+        this.username = username;
+    }
+
+    public MultipartFile getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(MultipartFile profilePic) {
+        this.profilePic = profilePic;
     }
 
     public String getUserId() {
@@ -110,9 +125,10 @@ public class UserDTO {
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", password='").append(password).append('\'');
-        sb.append(", userName='").append(username).append('\'');
+        sb.append(", username='").append(username).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append(", favoriteDog='").append(favoriteDog).append('\'');
+        sb.append(", profilePic=").append(profilePic);
         sb.append('}');
         return sb.toString();
     }

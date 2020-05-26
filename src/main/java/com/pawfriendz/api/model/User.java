@@ -1,7 +1,11 @@
 package com.pawfriendz.api.model;
 
+import com.pawfriendz.dto.UserDTO;
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.io.IOException;
 
 @Document(collection = "users")
 public class User {
@@ -14,18 +18,22 @@ public class User {
     private String username;
     private String phoneNumber;
     private String favoriteDog;
+    private Binary profilePic;
+
+    public User() {
+    }
 
 
-
-    public User(String userId, String firstName, String lastName, String email, String password, String username, String phoneNumber, String favoriteDog) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.phoneNumber = phoneNumber;
-        this.favoriteDog = favoriteDog;
+    public User(UserDTO userDTO) throws IOException {
+        this.userId = userDTO.getUserId();
+        this.firstName = userDTO.getFirstName();
+        this.lastName = userDTO.getLastName();
+        this.email = userDTO.getEmail();
+        this.password = userDTO.getPassword();
+        this.username = userDTO.getUsername();
+        this.phoneNumber = userDTO.getPhoneNumber();
+        this.favoriteDog = userDTO.getFavoriteDog();
+        this.profilePic= new Binary(userDTO.getProfilePic().getBytes());
     }
 
     public User(String username, String password) {
@@ -33,6 +41,14 @@ public class User {
         this.password = password;
     }
 
+
+    public Binary getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(Binary profilePic) {
+        this.profilePic = profilePic;
+    }
 
     public String getUserId() {
         return userId;
@@ -100,7 +116,7 @@ public class User {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("User{");
+        final StringBuilder sb = new StringBuilder("User{");
         sb.append("userId='").append(userId).append('\'');
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
@@ -109,6 +125,7 @@ public class User {
         sb.append(", username='").append(username).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append(", favoriteDog='").append(favoriteDog).append('\'');
+        sb.append(", profilePic=").append(profilePic);
         sb.append('}');
         return sb.toString();
     }
