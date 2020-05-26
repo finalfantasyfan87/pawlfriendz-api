@@ -1,35 +1,32 @@
 package com.pawfriendz.api.test.util;
 
-import com.pawfriendz.dto.UserDTO;
-import org.springframework.mock.web.MockMultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import org.springframework.mock.web.MockMultipartFile;
+
+import com.pawfriendz.dto.PhotoDTO;
+import com.pawfriendz.dto.UserDTO;
+
 public class DTOStubUtil {
 	public static UserDTO getUserDTO() {
-		UserDTO test = new UserDTO();
-		test.setUserId("123456789");
-		test.setFirstName("Barbie");
-		test.setLastName("Barbie");
-		test.setEmail("barbie@gmail.com");
-		test.setPassword("ALongWayToBaSingSe99!");
-		test.setUsername("barbz17");
-		test.setPhoneNumber("555-555-5555");
-		test.setFavoriteDog("doodle");
-		test.setProfilePic(getTestPhoto());
-		return test;
+		return new UserDTO("123456789", "Uncle", "Iroh", "owner@greendragontea.com", "ALongWayToBaSingSe99!", "iroh1", "555-555-5555", "Zuko");
 	}
+	
+	public static PhotoDTO getPhotoDTO() {
+		return new PhotoDTO("123456789", "234567890", getTestPhoto());
+	}
+		
 	public static MockMultipartFile getTestPhoto()  {
-		File testFile = new File("src/test/resources/barbie.jpeg");
+		File testFile = new File("src/test/resources/dog.jpg");
 		MockMultipartFile mockFile = null;
 		try {
-			mockFile = new MockMultipartFile("barbie.jpeg", Files.readAllBytes(testFile.toPath()));
+			mockFile = new MockMultipartFile("dog.jpg", Files.readAllBytes(testFile.toPath()));
 		} catch (IOException e) {
-	System.out.println(e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return mockFile;
 	}
-
 }
