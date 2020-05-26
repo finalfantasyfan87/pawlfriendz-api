@@ -9,7 +9,17 @@ import java.nio.file.Files;
 
 public class DTOStubUtil {
 	public static UserDTO getUserDTO() {
-		return new UserDTO("123456789", "Barbie", "Jones", "barbie@gmail.com", "ALongWayToBaSingSe99!", "iroh1", "555-555-5555", "doodle", getTestPhoto());
+		UserDTO test = new UserDTO();
+		test.setUserId("123456789");
+		test.setFirstName("Barbie");
+		test.setLastName("Barbie");
+		test.setEmail("barbie@gmail.com");
+		test.setPassword("ALongWayToBaSingSe99!");
+		test.setUsername("barbz17");
+		test.setPhoneNumber("555-555-5555");
+		test.setFavoriteDog("doodle");
+		test.setProfilePic(getTestPhoto());
+		return test;
 	}
 	public static MockMultipartFile getTestPhoto()  {
 		File testFile = new File("src/test/resources/barbie.jpeg");
@@ -17,8 +27,7 @@ public class DTOStubUtil {
 		try {
 			mockFile = new MockMultipartFile("barbie.jpeg", Files.readAllBytes(testFile.toPath()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	System.out.println(e.getMessage());
 		}
 		return mockFile;
 	}

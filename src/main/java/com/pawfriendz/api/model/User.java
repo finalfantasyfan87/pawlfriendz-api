@@ -33,7 +33,7 @@ public class User {
         this.username = userDTO.getUsername();
         this.phoneNumber = userDTO.getPhoneNumber();
         this.favoriteDog = userDTO.getFavoriteDog();
-        this.profilePic= new Binary(userDTO.getPhoto().getBytes());
+        this.profilePic= new Binary(userDTO.getProfilePic().getBytes());
     }
 
     public User(String username, String password) {

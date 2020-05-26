@@ -39,18 +39,18 @@ public class UserDTO {
     private String  favoriteDog;
 
     @NotNull
-    private MultipartFile photo;
+    private MultipartFile profilePic;
     public UserDTO(@NotBlank(message = "Password is required.") @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\p{Punct})[\\p{ASCII}&&[\\S]]{8,}$", message = "Your password must be between 8 and 10,at least one lowercase letter, at least one digit: between  0-9, at least one special character, and at least one capital letter.") String password, @NotBlank(message = "Username is required.") String username) {
         this.password = password;
         this.username = username;
     }
 
-    public MultipartFile getPhoto() {
-        return photo;
+    public MultipartFile getProfilePic() {
+        return profilePic;
     }
 
-    public void setPhoto(MultipartFile photo) {
-        this.photo = photo;
+    public void setProfilePic(MultipartFile profilePic) {
+        this.profilePic = profilePic;
     }
 
     public String getUserId() {
@@ -125,9 +125,10 @@ public class UserDTO {
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", password='").append(password).append('\'');
-        sb.append(", userName='").append(username).append('\'');
+        sb.append(", username='").append(username).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append(", favoriteDog='").append(favoriteDog).append('\'');
+        sb.append(", profilePic=").append(profilePic);
         sb.append('}');
         return sb.toString();
     }
