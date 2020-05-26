@@ -33,12 +33,4 @@ public class UserControllerTest {
         .andExpect(status().isOk());
     }
 
-    @Test
-    public void user_Controller_Returns_200_Is_Created_When_Saved_Successfully() throws Exception {
-        Gson gson = new Gson();
-        String testUserDTOBody = gson.toJson(testUserDTO);
-        mockMvc.perform(post("/register"). flashAttr("userDTO", testUserDTO))
-                .andExpect(status().isOk());
-    }
-
 }
