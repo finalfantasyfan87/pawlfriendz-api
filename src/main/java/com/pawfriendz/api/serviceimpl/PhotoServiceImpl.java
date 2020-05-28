@@ -1,7 +1,9 @@
 package com.pawfriendz.api.serviceimpl;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,20 @@ public class PhotoServiceImpl implements PhotoService {
 			e.printStackTrace();
 		}
 		return photoOptional;
+	}
+
+	@Override
+	public Optional<Photo> findByUserIdAndPhotoId(String userId, String photoId) {
+		return photoRepository.findByUserIdAndId(userId, photoId);
+	}
+
+	@Override
+	public Collection<Photo> findByUserId(String userId) {
+		Collection<Optional<Photo>> photosOptionals = photoRepository.findByUserId(userId);
+		Collection<Photo> photos = photosOptionals.stream()
+				   .filter(Optional::isPresent)
+				   .map(Optional::get)
+				   .collect(Collectors.toList());
+		return photos;
 	}
 }
