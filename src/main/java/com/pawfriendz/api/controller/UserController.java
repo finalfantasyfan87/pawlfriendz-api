@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +22,8 @@ public class UserController {
     UserService userService;
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
-//removed valid annotation because for some reason its interferring the response will have to further look into that.
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser( @RequestBody UserDTO userDTO) throws Exception {
+    public ResponseEntity<User> registerUser( @Valid @RequestBody UserDTO userDTO) throws Exception {
         User user = null;
         if (userDTO != null) {
             user = new User(userDTO.getFirstName(),userDTO.getLastName(), userDTO.getEmail(),userDTO.getPassword(),userDTO.getUsername(),userDTO.getPhoneNumber(),userDTO.getFavoriteDog(),userDTO.getProfilePic());
