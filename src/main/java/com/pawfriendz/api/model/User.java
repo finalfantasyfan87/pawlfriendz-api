@@ -4,8 +4,12 @@ import com.pawfriendz.dto.UserDTO;
 import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 @Document(collection = "users")
 public class User {
@@ -23,6 +27,19 @@ public class User {
     public User() {
     }
 
+    public User(String firstName, String lastName, String email, String password, String username, String phoneNumber, String favoriteDog, MultipartFile profilePic) throws IOException {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.phoneNumber = phoneNumber;
+        this.favoriteDog = favoriteDog;
+        File testFile = new File("src/test/resources/dog.jpg");
+        MockMultipartFile mockFile = new MockMultipartFile("dog.jpg", Files.readAllBytes(testFile.toPath()));
+        this.profilePic = new Binary(mockFile.getBytes());
+    //   this.profilePic =new Binary(profilePic.getBytes());
+    }
 
     public User(UserDTO userDTO) throws IOException {
         this.userId = userDTO.getUserId();
