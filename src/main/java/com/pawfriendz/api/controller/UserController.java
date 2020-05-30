@@ -21,9 +21,9 @@ public class UserController {
     UserService userService;
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
-
+//removed valid annotation because for some reason its interferring the response will have to further look into that.
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody UserDTO userDTO) throws Exception {
+    public ResponseEntity<User> registerUser( @RequestBody UserDTO userDTO) throws Exception {
         User user = null;
         if (userDTO != null) {
             user = new User(userDTO.getFirstName(),userDTO.getLastName(), userDTO.getEmail(),userDTO.getPassword(),userDTO.getUsername(),userDTO.getPhoneNumber(),userDTO.getFavoriteDog(),userDTO.getProfilePic());
