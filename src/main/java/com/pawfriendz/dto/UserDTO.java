@@ -2,6 +2,10 @@ package com.pawfriendz.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pawfriendz.api.util.PasswordUtil;
+
+import java.security.NoSuchAlgorithmException;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -37,7 +41,7 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO( @NotBlank(message = "First Name is required.") String firstName, @NotBlank(message = "Last Name is required.") String lastName, @NotBlank(message = "Email is required.") @Email String email, @NotBlank(message = "Password is required.") @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\p{Punct})[\\p{ASCII}&&[\\S]]{8,}$", message = "Your password must be between 8 and 10,at least one lowercase letter, at least one digit: between  0-9, at least one special character, and at least one capital letter.") String password, @NotBlank(message = "Username is required.") String username, @NotBlank(message = "Phone number is required.") @Pattern(regexp = "\\d{3}-\\d{3}-\\d{4}", message = "Please enter phone number in xxx-xxx-xxxx format. Numbers only, please!") String phoneNumber, String favoriteDog, MultipartFile profilePic) {
+    public UserDTO( @NotBlank(message = "First Name is required.") String firstName, @NotBlank(message = "Last Name is required.") String lastName, @NotBlank(message = "Email is required.") @Email String email, @NotBlank(message = "Password is required.") @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\p{Punct})[\\p{ASCII}&&[\\S]]{8,}$", message = "Your password must be between 8 and 10,at least one lowercase letter, at least one digit: between  0-9, at least one special character, and at least one capital letter.") String password, @NotBlank(message = "Username is required.") String username, @NotBlank(message = "Phone number is required.") @Pattern(regexp = "\\d{3}-\\d{3}-\\d{4}", message = "Please enter phone number in xxx-xxx-xxxx format. Numbers only, please!") String phoneNumber, String favoriteDog, MultipartFile profilePic)  {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
