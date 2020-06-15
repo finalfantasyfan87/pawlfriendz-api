@@ -2,6 +2,7 @@ package com.pawfriendz.api.controller;
 
 import com.pawfriendz.api.model.User;
 import com.pawfriendz.api.service.UserService;
+import com.pawfriendz.api.util.PasswordUtil;
 import com.pawfriendz.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class UserController {
     public ResponseEntity<User> registerUser( @ModelAttribute UserDTO userDTO) throws Exception {
         User user = null;
         if (userDTO != null) {
-            user = new User(userDTO.getFirstName(),userDTO.getLastName(), userDTO.getEmail(),userDTO.getPassword(),userDTO.getUsername(),userDTO.getPhoneNumber(),userDTO.getFavoriteDog(),userDTO.getProfilePic());
+            user = new User(userDTO.getFirstName(),userDTO.getLastName(), userDTO.getEmail(),PasswordUtil.hashPassword(userDTO.getPassword()),userDTO.getUsername(),userDTO.getPhoneNumber(),userDTO.getFavoriteDog(),userDTO.getProfilePic());
             userService.saveUser(user);
             logger.info(String.format("user id %s was saved to the database.", user.getUserId()));
         }
@@ -33,7 +34,7 @@ public class UserController {
     public  Optional<User> loginUser(@RequestBody UserDTO userDto) {
         User user = new User(userDto.getUsername(), userDto.getPassword());
         Optional<User> registeredUser = userService.login(user);
-         System.out.println("User:: "+registeredUser);
+        System.out.println("User:: "+registeredUser);
         return  registeredUser;
     }
 
